@@ -21,7 +21,7 @@ void boarding(){
                 int pos;
                 if(p[i].ent=='F') pos=1;
                 else pos=nRows+2;
-                if(arr[3][pos]) break;
+                if(arr[3][pos]) continue;;
                 state[i]="In Aisle";
                 arr[3][pos]=true;
                 wait[i]=p[i].speed;
@@ -133,59 +133,63 @@ void disembarking(){
     vector<pair<int,int>> q[2];
     while(out.size()<nPeople){
         t_disembarking++;
-        for(int i=1;i<=nPeople;i++){
-            //if(out.size()==108) cout << t_disembarking << " " << out.size() << " " << i << " " << state[i] << " " << wait[i] << " " << p[i].pos << " " << p[i].posx << "\n";
-            if(state[i]=="Seated"){
-                p[i].pos=p[i].seaty;
-                if(p[i].seatx=='A' and !arr[2][p[i].seaty]){
-                    arr[1][p[i].seaty]=false;
-                    arr[2][p[i].seaty]=true;
-                    p[i].seatx='B';
-                }
-                else if(p[i].seatx=='B' and !arr[3][p[i].seaty]){
-                    state[i]="Waiting";
-                    arr[2][p[i].seaty]=false;
-                    arr[3][p[i].seaty]=true;
-                    p[i].seatx='X';
-                    p[i].posx=3;
-                    wait[i]=t_seat;
-                }
-                else if(p[i].seatx=='C' and !arr[3][p[i].seaty]){
-                    state[i]="Waiting";
-                    arr[4][p[i].seaty]=false;
-                    arr[3][p[i].seaty]=true;
-                    p[i].seatx='Y';
-                    p[i].posx=3;
-                    wait[i]=t_seat;
-                }
-                else if(p[i].seatx=='D' and !arr[6][p[i].seaty]){
-                    arr[5][p[i].seaty]=false;
-                    arr[6][p[i].seaty]=true;
-                    p[i].seatx='E';
-                }
-                else if(p[i].seatx=='E' and !arr[7][p[i].seaty]){
-                    state[i]="Waiting";
-                    arr[6][p[i].seaty]=false;
-                    arr[7][p[i].seaty]=true;
-                    p[i].seatx='Z';
-                    p[i].posx=7;
-                    wait[i]=t_seat;
-                }
-                else if(p[i].seatx=='F' and !arr[7][p[i].seaty]){
-                    state[i]="Waiting";
-                    arr[8][p[i].seaty]=false;
-                    arr[7][p[i].seaty]=true;
-                    p[i].seatx='W';
-                    p[i].posx=7;
-                    wait[i]=t_seat;
-                }
-                else if(p[i].seatx=='G' and !arr[8][p[i].seaty]){
-                    arr[9][p[i].seaty]=false;
-                    arr[8][p[i].seaty]=true;
-                    p[i].seatx='F';
+        for(int check=0;check<3;check++){
+            for(int i=1;i<=nPeople;i++){
+                //if(out.size()==108) cout << t_disembarking << " " << out.size() << " " << i << " " << state[i] << " " << wait[i] << " " << p[i].pos << " " << p[i].posx << "\n";
+                if(state[i]=="Seated"){
+                    p[i].pos=p[i].seaty;
+                    if(p[i].seatx=='A' and !arr[2][p[i].seaty]){
+                        arr[1][p[i].seaty]=false;
+                        arr[2][p[i].seaty]=true;
+                        p[i].seatx='B';
+                    }
+                    else if(p[i].seatx=='B' and !arr[3][p[i].seaty]){
+                        state[i]="Waiting";
+                        arr[2][p[i].seaty]=false;
+                        arr[3][p[i].seaty]=true;
+                        p[i].seatx='X';
+                        p[i].posx=3;
+                        wait[i]=t_seat;
+                    }
+                    else if(p[i].seatx=='C' and !arr[3][p[i].seaty]){
+                        state[i]="Waiting";
+                        arr[4][p[i].seaty]=false;
+                        arr[3][p[i].seaty]=true;
+                        p[i].seatx='Y';
+                        p[i].posx=3;
+                        wait[i]=t_seat;
+                    }
+                    else if(p[i].seatx=='D' and !arr[6][p[i].seaty]){
+                        arr[5][p[i].seaty]=false;
+                        arr[6][p[i].seaty]=true;
+                        p[i].seatx='E';
+                    }
+                    else if(p[i].seatx=='E' and !arr[7][p[i].seaty]){
+                        state[i]="Waiting";
+                        arr[6][p[i].seaty]=false;
+                        arr[7][p[i].seaty]=true;
+                        p[i].seatx='Z';
+                        p[i].posx=7;
+                        wait[i]=t_seat;
+                    }
+                    else if(p[i].seatx=='F' and !arr[7][p[i].seaty]){
+                        state[i]="Waiting";
+                        arr[8][p[i].seaty]=false;
+                        arr[7][p[i].seaty]=true;
+                        p[i].seatx='W';
+                        p[i].posx=7;
+                        wait[i]=t_seat;
+                    }
+                    else if(p[i].seatx=='G' and !arr[8][p[i].seaty]){
+                        arr[9][p[i].seaty]=false;
+                        arr[8][p[i].seaty]=true;
+                        p[i].seatx='F';
+                    }
                 }
             }
-            else if(state[i]=="Waiting"){
+        }
+        for(int i=1;i<=nPeople;i++){
+            if(state[i]=="Waiting"){
                 wait[i]--;
                 if(wait[i]==0){
                     state[i]="Storage";
@@ -278,8 +282,7 @@ void disembarking(){
 
 int main(){
     ofstream myfile;
-    myfile.open ("data_two-aisle_.csv");
-    int k=1,temp;
+    myfile.open ("edited_two-aisle_.csv");
     side['A']=side['B']=side['X']=1;
     side['C']=side['Y']=2;
     side['D']=side['E']=side['Z']=3;
@@ -301,7 +304,7 @@ int main(){
         fill_n(wait,NXM,0);
         fill_n(bin[0],M*10,0);
         //cout << "before rand\n";
-        doubleaisle(p,nPeople,7,36,60,j);
+        doubleaisle(p,nPeople,7,36,0,j);
         for(int i=1;i<=nPeople;i++){
             s.insert(i);
             state[i]="Not in Aisle";

@@ -208,10 +208,78 @@ void disembarking(){
     }
 }
 
+vector<pair<int,int>> a[3];
+
+void re_wilma(){
+    for(int k=0;k<3;k++){
+        sort(a[k].begin(),a[k].end());
+        while(!a[k].empty()){
+            t_disembarking++;
+            for(int j=0;j<a[k].size();j++){
+                int i=a[k][j].second;
+                //cout << t_disembarking << " " << k << " " << a[k].size() << " " << i << " " << state[i] << " " << wait[i] << " " << p[i].pos << "\n";
+                if(state[i]=="Seated"){
+                    p[i].pos=p[i].seaty;
+                    if(!arr[4][p[i].seaty]){
+                        arr[c2i[p[i].seatx]][p[i].seaty]=false;
+                        arr[4][p[i].seaty]=true;
+                        if(p[i].seatx<='C') p[i].seatx='X';
+                        else p[i].seatx='Y';
+                        wait[i]=t_seat;
+                        state[i]="Waiting";
+                    }
+                }
+                else if(state[i]=="Waiting"){
+                    wait[i]--;
+                    if(wait[i]==0){
+                        state[i]="Storage";
+                        // time step for storage
+                        wait[i]=ceil((bin[p[i].seaty][side[p[i].seatx]]+p[i].luggage)*p[i].luggage*p[i].speed/2);
+                        if(wait[i]==0){
+                            bin[p[i].seaty][side[p[i].seatx]]-=p[i].luggage;
+                            state[i]="In Aisle";
+                            wait[i]=p[i].speed;
+                        }
+                    }
+                }
+                else if(state[i]=="Storage"){
+                    wait[i]--;
+                    if(wait[i]==0){
+                        bin[p[i].seaty][side[p[i].seatx]]-=p[i].luggage;
+                        state[i]="In Aisle";
+                        wait[i]=p[i].speed;
+                    }
+                }
+                else if(state[i]=="In Aisle"){
+                    wait[i]--;
+                    if(wait[i]==0){
+                        // there is space in front of them
+                        if(!arr[4][p[i].pos-1]){
+                            arr[4][p[i].pos]=false;
+                            arr[4][--p[i].pos]=true;
+                            a[k][j].first=p[i].pos;
+                            if(p[i].pos==0){
+                                state[i]="Not in Aisle";
+                                p[i].pos=-1;
+                                arr[4][0]=false;
+                                a[k].erase(a[k].begin()+j);
+                                continue;
+                            }
+                            wait[i]=p[i].speed;
+                        }
+                        else wait[i]=1;
+                    }
+                }
+            }
+            //cout << t_disembarking << " " << k << " " << a[k].size() << "\n";
+        }
+    }
+
+}
+
 int main(){
     ofstream myfile;
-    myfile.open("edited.csv");
-    int k=1,temp;
+    myfile.open("pete_.csv");
     side['A']=side['B']=side['C']=side['X']=0;
     side['D']=side['E']=side['F']=side['Y']=1;
     c2i['A']=1;
@@ -230,21 +298,26 @@ int main(){
         fill_n(arr[0],N*M,false);
         fill_n(wait,NXM,0);
         fill_n(bin[0],M*2,0);
-        //random(p,nPeople,6,j);
-        seat(p,nPeople,6,20,j);
+        random(p,nPeople,6,j);
+        //seat(p,nPeople,6,60,j);
         //section(p,nPeople,6,3,60,j,6);
         //repyramid(p,60,j);
         //cout << j << " before rand\n";
-        //seatsection(p,nPeople,6,60,j);
+        //seatsection(p,nPeople,6,20,j);
         //cout << "after rand\n";
-        //test_case1(p,nPeople,6,33);
         for(int i=1;i<=nPeople;i++){
             s.insert(i);
             state[i]="Not in Aisle";
+           // state[i]="Seated";
             p[i].pos=0;
+            if(p[i].seatx=='C' || p[i].seatx=='D') a[0].push_back({p[i].pos,i});
+            else if(p[i].seatx=='B' || p[i].seatx=='E') a[1].push_back({p[i].pos,i});
+            else a[2].push_back({p[i].pos,i});
             //cout << i << " " << p[i].pos << " " << p[i].seatx << " " << p[i].seaty << " " << p[i].luggage << " " << p[i].speed << "\n";
         }
         boarding();
+        //cout << j << "\n";
+        //re_wilma();
         //cout << "disem\n";
         disembarking();
         //cout << "fin\n";

@@ -11,8 +11,6 @@ struct info
     int luggage;
     int speed;
     char ent;
-    // ent='F' means Front
-    // end='B' means Back 
 };
 
 void kakshuffle(int *array, int n)
@@ -76,26 +74,30 @@ void information(info person[],int npassenger,int seatx)
             person[i].seatx = 'E';
         else if ((i%seatx)==0)
             person[i].seatx = 'F';
+        person[i].luggage = 0;
         int r = rand()%10+1;
         if(r<8)
             person[i].speed = 1;
         else
             person[i].speed = 2;
     }
-    int ii,jj,kk;
+    /*int ii,jj,kk;
     for(kk=1;kk<=npassenger;kk++)
     {
         int num[npassenger];
         for(ii=0;ii<npassenger;ii++)
         num[ii] = ii+1;
         kakshuffle(num,npassenger);
+        int Prob0=10,Prob1=,Prob2=,Prob3=;
         for(jj=0;jj<npassenger;jj++)
         {
-            if(jj<(20*npassenger/100)) person[num[jj]].luggage = 2;
-            else if((20*npassenger/100)<=jj&&jj<(70*npassenger/100)) person[num[jj]].luggage = 1;
-            else person[num[jj]].luggage = 0;
+            if(jj<(Prob0*npassenger/100)) person[num[jj]].luggage = 0;
+            else if((Prob0*npassenger/100)<=jj&&jj<((Prob0+Prob1)*npassenger/100)) person[num[jj]].luggage = 1;
+            else if(((Prob0+Prob1)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2)*npassenger/100)) person[num[jj]].luggage = 2;
+            else if(((Prob0+Prob1+Prob2)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3)*npassenger/100)) person[num[jj]].luggage = 3;
+            else person[num[jj]].luggage = 4;
         }
-    }
+    }*/
 
 }
 
@@ -118,35 +120,41 @@ void random(info person[],int npassenger,int seatx,int x)
             person[i].seatx = 'E';
         else if ((i%seatx)==0)
             person[i].seatx = 'F';
+        person[i].luggage = 0;
         int r = rand()%10+1;
         if(r<8)
             person[i].speed = 1;
         else
             person[i].speed = 2;
     }
-    /*int ii,jj,kk;
+    int ii,jj,kk;
     for(kk=1;kk<=npassenger;kk++)
     {
         int num[npassenger];
         for(ii=0;ii<npassenger;ii++)
         num[ii] = ii+1;
         kakshuffle(num,npassenger);
+        int Prob0=60,Prob1=31,Prob2=8,Prob3=1,Prob4=0;
         for(jj=0;jj<npassenger;jj++)
         {
-            if(jj<(60*npassenger/100)) person[num[jj]].luggage = 2;
-            else if((60*npassenger/100)<=jj&&jj<(90*npassenger/100)) person[num[jj]].luggage = 1;
-            else person[num[jj]].luggage = 0;
+            if(jj<(Prob0*npassenger/100)) person[num[jj]].luggage = 0;
+            else if((Prob0*npassenger/100)<=jj&&jj<((Prob0+Prob1)*npassenger/100)) person[num[jj]].luggage = 1;
+            else if(((Prob0+Prob1)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2)*npassenger/100))) person[num[jj]].luggage = 2;
+            else if(((Prob0+Prob1+Prob2)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3)*npassenger/100))) person[num[jj]].luggage = 3;
+            else if(((Prob0+Prob1+Prob2+Prob3)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3+Prob4)*npassenger/100))) person[num[jj]].luggage = 4;
+            else person[num[jj]].luggage = 5;
         }
-    }*/
+    }
 
     shuffle(person,npassenger);
 }
 
 
-void section(info person[],int npassenger,int seatx, int round, int bad, int x, int y)
+void section(info person[],int npassenger,int seatx, int bad, int x, int y)
 {
+    int round=3;
     bad = bad/2;
-    srand(time(NULL));
+    srand(x);
     int h = npassenger/(6*round);
     int g = 6*h;
     int sec[npassenger+5];
@@ -205,24 +213,31 @@ void section(info person[],int npassenger,int seatx, int round, int bad, int x, 
             person[i].seatx = 'E';
         else if ((i%seatx)==0)
             person[i].seatx = 'F';
-
         person[i].luggage = 0;
-        /*int num[npassenger];
-        for(i=0;i<npassenger;i++)
-        num[i] = i+1;
-        kakshuffle(num,npassenger);
-        for(i=0;i<npassenger;i++)
-        {
-            if(i<(20*npassenger/100)) person[num[i]].luggage = 2;
-            else if((20*npassenger/100)<=i&&i<(70*npassenger/100)) person[num[i]].luggage = 1;
-            else person[num[i]].luggage = 0;
-        }*/
 
         int r = rand()%10+1;
         if(r<8)
             person[i].speed = 1;
         else
             person[i].speed = 2;
+    }
+    int ii,jj,kk;
+    for(kk=1;kk<=npassenger;kk++)
+    {
+        int num[npassenger];
+        for(ii=0;ii<npassenger;ii++)
+        num[ii] = ii+1;
+        kakshuffle(num,npassenger);
+        int Prob0=22,Prob1=33,Prob2=25,Prob3=13,Prob4=5;
+        for(jj=0;jj<npassenger;jj++)
+        {
+            if(jj<(Prob0*npassenger/100)) person[num[jj]].luggage = 0;
+            else if((Prob0*npassenger/100)<=jj&&jj<((Prob0+Prob1)*npassenger/100)) person[num[jj]].luggage = 1;
+            else if(((Prob0+Prob1)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2)*npassenger/100))) person[num[jj]].luggage = 2;
+            else if(((Prob0+Prob1+Prob2)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3)*npassenger/100))) person[num[jj]].luggage = 3;
+            else if(((Prob0+Prob1+Prob2+Prob3)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3+Prob4)*npassenger/100))) person[num[jj]].luggage = 4;
+            else person[num[jj]].luggage = 5;
+        }
     }
 
     /*for(int j=1;j<=npassenger;j++)
@@ -262,8 +277,8 @@ void section(info person[],int npassenger,int seatx, int round, int bad, int x, 
             person[b] = arr;
             already[a] = true;
             already[b] = true;
-            //printf("%d ",a);
-            //printf("%d\n",b);
+            printf("%d ",a);
+            printf("%d\n",b);
             i++;
     }
     /*for(int i=1;i<=npassenger;i++)
@@ -277,43 +292,40 @@ void seat(info person[],int npassenger,int seatx, int bad,int x)
     bad = bad/2;
     srand(x);
     int n=npassenger/6;
+    int sec[npassenger+5];
     for(int i=1;i<=npassenger;i++)
     {
         if (5*n<i&&i<=npassenger){
             person[i].seatx = 'C';
             person[i].seaty = (i-1)%(npassenger/seatx)+1;
+            sec[i] = 1;
         }
         else if (4*n<i&&i<=5*n){
             person[i].seatx = 'D';
             person[i].seaty = (i-1)%(npassenger/seatx)+1;
+            sec[i] = 1;
         }
         else if (3*n<i&&i<=4*n){
             person[i].seatx = 'B';
             person[i].seaty = (i-1)%(npassenger/seatx)+1;
+            sec[i] = 2;
         }
         else if (2*n<i&&i<=3*n){
             person[i].seatx = 'E';
             person[i].seaty = (i-1)%(npassenger/seatx)+1;
+            sec[i] = 2;
         }
         else if (1*n<i&&i<=2*n){
             person[i].seatx = 'A';
             person[i].seaty = (i-1)%(npassenger/seatx)+1;
+            sec[i] = 3;
         }
         else if (0<i&&i<=1*n){
             person[i].seatx = 'F';
             person[i].seaty = (i-1)%(npassenger/seatx)+1;
+            sec[i] = 3;
         }
-        person[i].luggage = 0;
-        /*int num[npassenger];
-        for(i=0;i<npassenger;i++)
-        num[i] = i+1;
-        kakshuffle(num,npassenger);
-        for(i=0;i<npassenger;i++)
-        {
-            if(i<(20*npassenger/100)) person[num[i]].luggage = 2;
-            else if((20*npassenger/100)<=i&&i<(70*npassenger/100)) person[num[i]].luggage = 1;
-            else person[num[i]].luggage = 0;
-        }*/
+
         int r = rand()%10+1;
         if(r<8)
             person[i].speed = 1;
@@ -328,153 +340,27 @@ void seat(info person[],int npassenger,int seatx, int bad,int x)
         m = c+1;
         c = c+2*npassenger/seatx;
     }
-    /*for(int i=1;i<=npassenger;i++)
-        printf("%c ",person[i].seatx);
-    printf("\n");*/
-    info arr;
-    int a;
-    int b;
-    bool already[npassenger+5]={};
-    int i = 0;
-    while(i<bad*npassenger/100)
+    int ii,jj,kk;
+    for(kk=1;kk<=npassenger;kk++)
     {
-        a=0;
-        b=0;
-        while(already[a]== true||a==0)
-        a = (rand() % (npassenger - 1 + 1)) + 1;
-        //printf("%d",a);
-        while(person[b].seatx==person[a].seatx||b==0||already[b]==true)
-        {
-            b = (rand() % (npassenger - 1 + 1)) + 1;
-            //printf("%d",b);
-        }
-            arr = person[a];
-            person[a] = person[b];
-            person[b] = arr;
-            already[a] = true;
-            already[b] = true;
-            i++;
-    }
-    /*for(int i=1;i<=npassenger;i++)
-        printf("%c ",person[i].seatx);
-    printf("\n");*/
-}
-
-
-void test_case1(info person[],int npassenger,int seatx,int seaty){
-    int cnt=1,cntseat=0;
-    bool already[10][40]={};
-    while(cntseat<13){
-        for(int i=seaty;i>0;i-=2){
-            if(cntseat==0 or cntseat==2){
-                if(already[1][i]) i--;
-                person[cnt].seatx='A';
-                already[1][i]=true;
-                person[cnt].luggage=2;
-            }
-            else if(cntseat==1 or cntseat==3){
-                if(already[7][i]) i--;
-                person[cnt].seatx='F';
-                already[7][i]=true;
-                person[cnt].luggage=2;
-            }
-            else if(cntseat==4 or cntseat==6){
-                if(already[2][i]) i--;
-                person[cnt].seatx='B';
-                already[2][i]=true;
-                person[cnt].luggage=1;
-            }
-            else if(cntseat==5 or cntseat==7){
-                if(already[6][i]) i--;
-                person[cnt].seatx='E';
-                already[6][i]=true;
-                person[cnt].luggage=1;
-            }
-            else if(cntseat==8 or cntseat==10){
-                if(already[3][i]) i--;
-                person[cnt].seatx='C';
-                already[3][i]=true;
-            }
-            else{
-                if(already[5][i]) i--;
-                person[cnt].seatx='D';
-                already[5][i]=true;
-            }
-            person[cnt].speed=1;
-            person[cnt++].seaty=i;
-        }
-        cntseat++;
-    }
-}
-
-void doubleaisle(info person[],int npassenger,int seatx,int seaty,int bad,int x)
-{
-    bad = bad/2;
-    srand(x);
-    int n=npassenger/7;
-    for(int i=1;i<=npassenger;i++)
-    {
-        if (6*n<i&&i<=npassenger){
-            person[i].seatx = 'E';
-            person[i].seaty = (i-1)%(npassenger/seatx)+2;
-        }
-        else if (5*n<i&&i<=6*n){
-            person[i].seatx = 'D';
-            person[i].seaty = (i-1)%(npassenger/seatx)+2;
-        }
-        else if (4*n<i&&i<=5*n){
-            person[i].seatx = 'C';
-            person[i].seaty = (i-1)%(npassenger/seatx)+2;
-        }
-        else if (3*n<i&&i<=4*n){
-            person[i].seatx = 'F';
-            person[i].seaty = (i-1)%(npassenger/seatx)+2;
-        }
-        else if (2*n<i&&i<=3*n){
-            person[i].seatx = 'B';
-            person[i].seaty = (i-1)%(npassenger/seatx)+2;
-        }
-        else if (1*n<i&&i<=2*n){
-            person[i].seatx = 'G';
-            person[i].seaty = (i-1)%(npassenger/seatx)+2;
-        }
-        else if (0<i&&i<=1*n){
-            person[i].seatx = 'A';
-            person[i].seaty = (i-1)%(npassenger/seatx)+2;
-        }
-        /*int num[npassenger];
-        for(i=0;i<npassenger;i++)
-        num[i] = i+1;
+        int num[npassenger];
+        for(ii=0;ii<npassenger;ii++)
+        num[ii] = ii+1;
         kakshuffle(num,npassenger);
-        for(i=0;i<npassenger;i++)
+        int Prob0=22,Prob1=33,Prob2=25,Prob3=13,Prob4=5;
+        for(jj=0;jj<npassenger;jj++)
         {
-            if(i<(20*npassenger/100)) person[num[i]].luggage = 2;
-            else if((20*npassenger/100)<=i&&i<(70*npassenger/100)) person[num[i]].luggage = 1;
-            else person[num[i]].luggage = 0;
-        }*/
-        int r = rand()%10+1;
-        if(r<8)
-            person[i].speed = 1;
-        else
-            person[i].speed = 2;
-        if(person[i].seaty<=seaty/2+1) 
-            person[i].ent = 'F',person[i].posx=1;
-        else 
-            person[i].ent = 'B',person[i].posx=seaty+2;
+            if(jj<(Prob0*npassenger/100)) person[num[jj]].luggage = 0;
+            else if((Prob0*npassenger/100)<=jj&&jj<((Prob0+Prob1)*npassenger/100)) person[num[jj]].luggage = 1;
+            else if(((Prob0+Prob1)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2)*npassenger/100))) person[num[jj]].luggage = 2;
+            else if(((Prob0+Prob1+Prob2)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3)*npassenger/100))) person[num[jj]].luggage = 3;
+            else if(((Prob0+Prob1+Prob2+Prob3)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3+Prob4)*npassenger/100))) person[num[jj]].luggage = 4;
+            else person[num[jj]].luggage = 5;
+        }
     }
     /*for(int i=1;i<=npassenger;i++)
-            printf("%c ",person[i].seatx);
-            printf("\n");*/
-    int m = 1;
-    int c = 2*npassenger/seatx;
-    while(m+npassenger/seatx < npassenger)
-    {
-        shuffle_s(person,m,c);
-        shuffle_s(person,m,c-npassenger/seatx);  
-        m = c+1;
-        c = c+2*npassenger/seatx;
-    }
-    shuffle_s(person,m,c-npassenger/seatx);
+        printf("%c ",person[i].seatx);
+    printf("\n");*/
     info arr;
     int a;
     int b;
@@ -486,13 +372,14 @@ void doubleaisle(info person[],int npassenger,int seatx,int seaty,int bad,int x)
         b=0;
         while(already[a]== true||a==0)
         a = (rand() % (npassenger - 1 + 1)) + 1;
-        //printf("%d ",a);
-        while(person[b].seatx==person[a].seatx||b==0||already[b]== true)
+        printf("%d ",a);
+        //printf("%d",a);
+        while(sec[b]==sec[a]||b==0||already[b]== true)
         {
             b = (rand() % (npassenger - 1 + 1)) + 1;
             //printf("%d",b);
         }
-        //printf("%d\n",b);
+        printf("%d\n",b);
             arr = person[a];
             person[a] = person[b];
             person[b] = arr;
@@ -500,6 +387,9 @@ void doubleaisle(info person[],int npassenger,int seatx,int seaty,int bad,int x)
             already[b] = true;
             i++;
     }
+    /*for(int i=1;i<=npassenger;i++)
+        printf("%d ",person[i].seaty);
+    printf("\n");*/
 }
 
 void repyramid(info person[],int bad,int x)
@@ -646,6 +536,25 @@ void repyramid(info person[],int bad,int x)
             person[i].speed = 2;
     }
 
+    int ii,jj,kk;
+    for(kk=1;kk<=npassenger;kk++)
+    {
+        int num[npassenger];
+        for(ii=0;ii<npassenger;ii++)
+        num[ii] = ii+1;
+        kakshuffle(num,npassenger);
+        int Prob0=22,Prob1=33,Prob2=25,Prob3=13,Prob4=5;
+        for(jj=0;jj<npassenger;jj++)
+        {
+            if(jj<(Prob0*npassenger/100)) person[num[jj]].luggage = 0;
+            else if((Prob0*npassenger/100)<=jj&&jj<((Prob0+Prob1)*npassenger/100)) person[num[jj]].luggage = 1;
+            else if(((Prob0+Prob1)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2)*npassenger/100))) person[num[jj]].luggage = 2;
+            else if(((Prob0+Prob1+Prob2)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3)*npassenger/100))) person[num[jj]].luggage = 3;
+            else if(((Prob0+Prob1+Prob2+Prob3)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3+Prob4)*npassenger/100))) person[num[jj]].luggage = 4;
+            else person[num[jj]].luggage = 5;
+        }
+    }
+
     info arr;
     int o;
     int p;
@@ -730,7 +639,7 @@ void seatsection(info person[],int npassenger,int seatx, int bad, int x)
 
     /*for(i=1;i<=npassenger;i++)
     {
-        printf("%d",person[i].seaty);
+        printf("%d",sec[i]);
         printf("%c ",person[i].seatx);
     }printf("\n");*/
 
@@ -750,20 +659,24 @@ void seatsection(info person[],int npassenger,int seatx, int bad, int x)
         printf("%c ",person[i].seatx);
     }printf("\n");*/
 
-    /*int ii,jj,kk;
+    int ii,jj,kk;
     for(kk=1;kk<=npassenger;kk++)
     {
         int num[npassenger];
         for(ii=0;ii<npassenger;ii++)
         num[ii] = ii+1;
         kakshuffle(num,npassenger);
+        int Prob0=22,Prob1=33,Prob2=25,Prob3=13,Prob4=5;
         for(jj=0;jj<npassenger;jj++)
         {
-            if(jj<(20*npassenger/100)) person[num[jj]].luggage = 2;
-            else if((20*npassenger/100)<=jj&&jj<(70*npassenger/100)) person[num[jj]].luggage = 1;
-            else person[num[jj]].luggage = 0;
+            if(jj<(Prob0*npassenger/100)) person[num[jj]].luggage = 0;
+            else if((Prob0*npassenger/100)<=jj&&jj<((Prob0+Prob1)*npassenger/100)) person[num[jj]].luggage = 1;
+            else if(((Prob0+Prob1)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2)*npassenger/100))) person[num[jj]].luggage = 2;
+            else if(((Prob0+Prob1+Prob2)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3)*npassenger/100))) person[num[jj]].luggage = 3;
+            else if(((Prob0+Prob1+Prob2+Prob3)*npassenger/100)<=jj&&jj<(((Prob0+Prob1+Prob2+Prob3+Prob4)*npassenger/100))) person[num[jj]].luggage = 4;
+            else person[num[jj]].luggage = 5;
         }
-    }*/
+    }
     for(i=1;i<=npassenger;i++)
     {
         int r = rand()%10+1;
@@ -790,7 +703,7 @@ void seatsection(info person[],int npassenger,int seatx, int bad, int x)
         {
             q = (rand() % (npassenger - 1 + 1)) + 1;
             h++;
-            if(h>500) break;
+            if(h>10) break;
             //printf("%d",b);
         }
         //printf("%d\n",p);
@@ -805,4 +718,105 @@ void seatsection(info person[],int npassenger,int seatx, int bad, int x)
         }
         else i++;
     }
+
 }
+
+
+void doubleaisle(info person[],int npassenger,int seatx,int seaty,int bad,int x)
+{
+    bad = bad/2;
+    srand(x);
+    int n=npassenger/7;
+    for(int i=1;i<=npassenger;i++)
+    {
+        if (6*n<i&&i<=npassenger){
+            person[i].seatx = 'E';
+            person[i].seaty = (i-1)%(npassenger/seatx)+2;
+        }
+        else if (5*n<i&&i<=6*n){
+            person[i].seatx = 'D';
+            person[i].seaty = (i-1)%(npassenger/seatx)+2;
+        }
+        else if (4*n<i&&i<=5*n){
+            person[i].seatx = 'C';
+            person[i].seaty = (i-1)%(npassenger/seatx)+2;
+        }
+        else if (3*n<i&&i<=4*n){
+            person[i].seatx = 'F';
+            person[i].seaty = (i-1)%(npassenger/seatx)+2;
+        }
+        else if (2*n<i&&i<=3*n){
+            person[i].seatx = 'B';
+            person[i].seaty = (i-1)%(npassenger/seatx)+2;
+        }
+        else if (1*n<i&&i<=2*n){
+            person[i].seatx = 'G';
+            person[i].seaty = (i-1)%(npassenger/seatx)+2;
+        }
+        else if (0<i&&i<=1*n){
+            person[i].seatx = 'A';
+            person[i].seaty = (i-1)%(npassenger/seatx)+2;
+        }
+        /*int num[npassenger];
+        for(i=0;i<npassenger;i++)
+        num[i] = i+1;
+        kakshuffle(num,npassenger);
+        for(i=0;i<npassenger;i++)
+        {
+            if(i<(20*npassenger/100)) person[num[i]].luggage = 2;
+            else if((20*npassenger/100)<=i&&i<(70*npassenger/100)) person[num[i]].luggage = 1;
+            else person[num[i]].luggage = 0;
+        }*/
+        int r = rand()%10+1;
+        if(r<8)
+            person[i].speed = 1;
+        else
+            person[i].speed = 2;
+        if(person[i].seaty<=seaty/2+1)
+            person[i].ent = 'F',person[i].posx=1;
+        else
+            person[i].ent = 'B',person[i].posx=seaty+2;
+    }
+    /*for(int i=1;i<=npassenger;i++)
+            printf("%c ",person[i].seatx);
+            printf("\n");*/
+    int m = 1;
+    int c = 2*npassenger/seatx;
+    while(m+npassenger/seatx < npassenger)
+    {
+        shuffle_s(person,m,c);
+        shuffle_s(person,m,c-npassenger/seatx);
+        m = c+1;
+        c = c+2*npassenger/seatx;
+    }
+    shuffle_s(person,m,c-npassenger/seatx);
+    info arr;
+    int a;
+    int b;
+    bool already[npassenger+5]={};
+    int i = 0;
+    while(i<bad*npassenger/100)
+    {
+        a=0;
+        b=0;
+        while(already[a]== true||a==0)
+        a = (rand() % (npassenger - 1 + 1)) + 1;
+        //printf("%d ",a);
+        while(person[b].seatx==person[a].seatx||b==0||already[b]== true)
+        {
+            b = (rand() % (npassenger - 1 + 1)) + 1;
+            //printf("%d",b);
+        }
+        //printf("%d\n",b);
+            arr = person[a];
+            person[a] = person[b];
+            person[b] = arr;
+            already[a] = true;
+            already[b] = true;
+            i++;
+    }
+}
+
+
+
+
